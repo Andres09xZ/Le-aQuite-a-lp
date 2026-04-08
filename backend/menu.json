@@ -1,0 +1,53 @@
+[
+  {
+    "title": "Nuestro menú de Hoy !",
+    "items": [
+      {
+        "name": "Salchipapa ",
+        "desc": "Salchicha y papas",
+        "price": "$2.50",
+        "badge": "Disponible"
+      },
+      {
+        "name": "Seco de Chivo",
+        "desc": "Papas",
+        "price": "$5",
+        "badge": "Disponible"
+      },
+      {
+        "name": "Llapingacho",
+        "desc": "Salchicha, tortillas de papa, aguacate",
+        "price": "$7",
+        "badge": "Disponible"
+      },
+      {
+        "name": "Pastel de Carne",
+        "desc": "Pastel de Carne",
+        "price": "$9",
+        "badge": "Disponible"
+      }
+    ]
+  },
+  {
+    "title": "San Valentín !",
+    "items": [
+      {
+        "name": "Chocolates con Fresa",
+        "desc": "Fresa y Chocolates",
+        "price": "$5",
+        "badge": "Oferta"
+      }
+    ]
+  },
+  {
+    "title": "Semana Santa !!",
+    "items": [
+      {
+        "name": "Fanesca !",
+        "desc": "Sopa tradicional de Ecuador que tiene muchos granos y lleva el famoso pescado ",
+        "price": "$3",
+        "badge": "Disponible"
+      }
+    ]
+  }
+]
