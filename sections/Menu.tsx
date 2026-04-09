@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import { useLanguage } from "@/context/LanguageContext"
+import { useRestaurant } from "@/context/RestaurantContext"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 type RestaurantKey = "san-marcos" | "la-ronda"
@@ -33,6 +34,7 @@ const API_BASE_URL = (import.meta.env.VITE_API_URL as string | undefined)?.repla
 
 export default function Menu() {
   const { t } = useLanguage()
+  const { selectedRestaurant } = useRestaurant()
   const [activeRestaurant, setActiveRestaurant] = useState<RestaurantKey>("san-marcos")
   const [active, setActive]         = useState(0)
   const [categories, setCategories] = useState<MenuCategory[]>([])
@@ -70,6 +72,11 @@ export default function Menu() {
     const id = setInterval(loadMenu, 8000)
     return () => clearInterval(id)
   }, [])
+
+  // Sincronizar con restaurante seleccionado desde el Hero
+  useEffect(() => {
+    if (selectedRestaurant !== null) setActiveRestaurant(selectedRestaurant)
+  }, [selectedRestaurant])
 
   // Reset active tab when switching restaurant
   useEffect(() => { setActive(0) }, [activeRestaurant])

@@ -138,7 +138,7 @@
   "chat.promo.4": "Write to us!",
   "chat.promo.5": "Have you seen the menu yet?",
   "chat.promo.6": "We are ready to welcome you!",
-  "chat.bot.greeting": "Welcome to *Leña Quiteña* 🔥! The authentic flavor of Quito-style grill. How can I help you today?",
+  "chat.bot.greeting": "Hello, welcome to *Leña Quiteña*. The authentic flavor of Quito-style grill — how can I help you?",
   "chat.bot.menu": "🥩 *GRILLS*\n• Leña Quiteña Churrasco — $18\n• Smoked BBQ Ribs — $22\n• Wood-Grilled Tenderloin — $24\n• Wood-Fired Chicken — $14\n\n🍟 *SIDES*\n• Fries / steamed potatoes / gratin potatoes — $4\n• Creole salad / green salad — $3.50\n• Fried yuca — $3.50\n• Corn with cheese — $3\n\n🍺 *DRINKS*\n• Pilsener / Club beer — $3\n• Fresh lemonade / orangeade — $3.50\n• Water / soft drinks — $2\n• Juice of the day — $3\n\n🍮 *DESSERTS*\n• Homemade tres leches — $5\n• Traditional paila ice cream — $4\n• Coconut flan — $4.50\n\nWould you like to place an order or need more information?",
   "chat.bot.reserve": "We would be happy to help with your reservation! 🎉\n\nPlease share:\n1️⃣ Preferred date\n2️⃣ Preferred time\n3️⃣ Number of guests\n4️⃣ Your name and phone number\n\nOr message us directly on WhatsApp: *+593 98 765 4321*",
   "chat.bot.order": "🛵 *We deliver across North and Central Quito*\n\nTo place your order:\n• WhatsApp: *+593 98 765 4321*\n• Estimated time: 35-50 min\n• Minimum order: $15\n• Delivery fee: $2.50\n\nWould you like to see the menu first?",
@@ -167,5 +167,7 @@
   "chat.reservation.processing": "Processing your reservation...",
   "chat.reservation.success": "Your reservation is confirmed! 🔥 We look forward to seeing you at Leña Quiteña.",
   "chat.reservation.error": "We could not save your reservation right now. Please try again or contact us on WhatsApp.",
-  "chat.reservation.cancelled": "Reservation cancelled. How else can I help you?"
+  "chat.reservation.cancelled": "Reservation cancelled. How else can I help you?",
+  "chat.input.placeholder": "Type your message…",
+  "chat.input.send": "Send message"
 }

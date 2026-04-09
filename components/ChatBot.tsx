@@ -32,6 +32,26 @@ interface ReservationData {
 
 type Translator = (key: string, params?: Record<string, string | number>) => string;
 
+// ── Thin-line SVG icons (premium feel, replaces emojis) ─────────────────────
+const iconProps = { width: 15, height: 15, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, xmlns: 'http://www.w3.org/2000/svg' };
+
+const IconMenu = () => (<svg {...iconProps}><path d="M4 4h16M4 12h16M4 20h16"/><circle cx="20" cy="4" r="1" fill="currentColor" stroke="none"/></svg>);
+const IconCalendar = () => (<svg {...iconProps}><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>);
+const IconDelivery = () => (<svg {...iconProps}><path d="M5 17h-2a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h9v7h-3"/><path d="M14 17h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="M14 10V6h4l3 4v6a1 1 0 0 1-1 1h-1"/></svg>);
+const IconMapPin = () => (<svg {...iconProps}><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>);
+const IconClock = () => (<svg {...iconProps}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>);
+const IconPhone = () => (<svg {...iconProps}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>);
+const IconArrowLeft = () => (<svg {...iconProps}><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>);
+const IconCheck = () => (<svg {...iconProps}><polyline points="20 6 9 17 4 12"/></svg>);
+const IconXCircle = () => (<svg {...iconProps}><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>);
+
+// Map option text keys to their icons
+const OPTION_ICON_MAP: Record<string, () => JSX.Element> = {};
+
+function getOptionIcon(optText: string): (() => JSX.Element) | null {
+  return OPTION_ICON_MAP[optText] ?? null;
+}
+
 // ── Flame SVG icon (brand-specific) ──────────────────────────────────────────
 const FlameIcon = ({ className = '' }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -54,13 +74,13 @@ const UtensilsIcon = ({ className = '' }: { className?: string }) => (
 function getBotResponse(userMessage: string, t: Translator): { text: string; options?: string[] } {
   const msg = userMessage.toLowerCase();
 
-  const optMenu = `📋 ${t('chat.option.menu')}`;
-  const optReserve = `📅 ${t('chat.option.reserve')}`;
-  const optOrder = `🛵 ${t('chat.option.order')}`;
-  const optLocation = `📍 ${t('chat.option.location')}`;
-  const optHours = `🕐 ${t('chat.option.hours')}`;
-  const optContact = `📞 ${t('chat.option.contact')}`;
-  const optBack = `🔙 ${t('chat.option.back')}`;
+  const optMenu = t('chat.option.menu');
+  const optReserve = t('chat.option.reserve');
+  const optOrder = t('chat.option.order');
+  const optLocation = t('chat.option.location');
+  const optHours = t('chat.option.hours');
+  const optContact = t('chat.option.contact');
+  const optBack = t('chat.option.back');
 
   // Greetings (ES + EN)
   if (msg.match(/^(hola|hey|buenas|buenos|buen\s*d[ií]a|saludos|buenas\s*tardes|buenas\s*noches|hi|hello|greetings|good\s*morning|good\s*afternoon|good\s*evening)/)) {
@@ -189,20 +209,36 @@ export function ChatBot() {
   const API_BASE_URL =
     (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '') || 'http://localhost:3001';
   const QUICK_OPTIONS = [
-    `📋 ${t('chat.option.menu')}`,
-    `📅 ${t('chat.option.reserve')}`,
-    `🛵 ${t('chat.option.order')}`,
-    `📍 ${t('chat.option.location')}`,
-    `🕐 ${t('chat.option.hours')}`,
-    `📞 ${t('chat.option.contact')}`,
+    t('chat.option.menu'),
+    t('chat.option.reserve'),
+    t('chat.option.order'),
+    t('chat.option.location'),
+    t('chat.option.hours'),
+    t('chat.option.contact'),
   ];
+
+  // Build icon map dynamically (needs t() values)
+  OPTION_ICON_MAP[t('chat.option.menu')] = IconMenu;
+  OPTION_ICON_MAP[t('chat.option.reserve')] = IconCalendar;
+  OPTION_ICON_MAP[t('chat.option.order')] = IconDelivery;
+  OPTION_ICON_MAP[t('chat.option.location')] = IconMapPin;
+  OPTION_ICON_MAP[t('chat.option.hours')] = IconClock;
+  OPTION_ICON_MAP[t('chat.option.contact')] = IconPhone;
+  OPTION_ICON_MAP[t('chat.option.back')] = IconArrowLeft;
+  OPTION_ICON_MAP[t('chat.reservation.locale.san_marcos')] = IconMapPin;
+  OPTION_ICON_MAP[t('chat.reservation.locale.la_ronda')] = IconMapPin;
+  OPTION_ICON_MAP[t('chat.reservation.cancel')] = IconXCircle;
+  OPTION_ICON_MAP[t('chat.reservation.today')] = IconCalendar;
+  OPTION_ICON_MAP[t('chat.reservation.tomorrow')] = IconCalendar;
+  OPTION_ICON_MAP[t('chat.reservation.confirm_yes')] = IconCheck;
+
   const PROMO_MESSAGES = [
-    `👋 ${t('chat.promo.1')}`,
-    `🛵 ${t('chat.promo.2')}`,
-    `📅 ${t('chat.promo.3')}`,
-    `📞 ${t('chat.promo.4')}`,
-    `🔥 ${t('chat.promo.5')}`,
-    `🥩 ${t('chat.promo.6')}`,
+    t('chat.promo.1'),
+    t('chat.promo.2'),
+    t('chat.promo.3'),
+    t('chat.promo.4'),
+    t('chat.promo.5'),
+    t('chat.promo.6'),
   ];
 
   const getInitialMessage = (): Message => ({
@@ -229,20 +265,20 @@ export function ChatBot() {
   const chatBodyRef = useRef<HTMLDivElement>(null);
 
   const RESERVATION_LOCALE_OPTIONS = [
-    `📍 ${t('chat.reservation.locale.san_marcos')}`,
-    `📍 ${t('chat.reservation.locale.la_ronda')}`,
-    `❌ ${t('chat.reservation.cancel')}`,
+    t('chat.reservation.locale.san_marcos'),
+    t('chat.reservation.locale.la_ronda'),
+    t('chat.reservation.cancel'),
   ];
 
   const RESERVATION_DATE_OPTIONS = [
-    `📅 ${t('chat.reservation.today')}`,
-    `📆 ${t('chat.reservation.tomorrow')}`,
-    `❌ ${t('chat.reservation.cancel')}`,
+    t('chat.reservation.today'),
+    t('chat.reservation.tomorrow'),
+    t('chat.reservation.cancel'),
   ];
 
   const CONFIRM_OPTIONS = [
-    `✅ ${t('chat.reservation.confirm_yes')}`,
-    `❌ ${t('chat.reservation.cancel')}`,
+    t('chat.reservation.confirm_yes'),
+    t('chat.reservation.cancel'),
   ];
 
   useEffect(() => {
@@ -378,9 +414,9 @@ export function ChatBot() {
           sender: 'bot',
           timestamp: new Date(),
           options: [
-            `📋 ${t('chat.option.menu')}`,
-            `📍 ${t('chat.option.location')}`,
-            `📞 ${t('chat.option.contact')}`,
+            t('chat.option.menu'),
+            t('chat.option.location'),
+            t('chat.option.contact'),
           ],
         },
       ]);
@@ -643,8 +679,8 @@ export function ChatBot() {
                   <span className="absolute -bottom-0.5 -right-0.5 size-3 bg-green-400 rounded-full border-2 border-[#1a0a08]" />
                 </div>
                 <div>
-                  <h2 className="text-sm font-bold uppercase tracking-widest text-[#f5e6c8] md:text-base"
-                    style={{ fontFamily: "'Cinzel', 'Trajan Pro', serif", letterSpacing: '0.12em' }}>
+                  <h2 className="text-sm font-extrabold tracking-wide text-[#f5e6c8] md:text-base"
+                    style={{ fontFamily: "'Nunito Variable', sans-serif", letterSpacing: '0.02em' }}>
                     Leña Quiteña
                   </h2>
                   <p className="flex items-center gap-1.5 text-[11px] text-[#c4922a] md:text-xs" style={{ fontFamily: "'Nunito Variable', sans-serif" }}>
@@ -710,21 +746,25 @@ export function ChatBot() {
                       {/* Quick reply chips */}
                       {msg.options && (
                         <div className="mt-1 grid w-full grid-cols-1 gap-1.5 sm:grid-cols-2">
-                          {msg.options.map((opt) => (
-                            <button
-                              key={opt}
-                              onClick={() => sendMessage(opt)}
-                              className="rounded-lg px-2.5 py-2 text-left text-[13px] transition-all duration-200 hover:scale-[1.02] active:scale-95"
-                              style={{
-                                fontFamily: "'Nunito Variable', sans-serif",
-                                background: 'rgba(139,18,27,0.04)',
-                                border: '1px solid rgba(139,18,27,0.1)',
-                                color: '#8b121b',
-                              }}
-                            >
-                              {opt}
-                            </button>
-                          ))}
+                          {msg.options.map((opt) => {
+                            const OptIcon = getOptionIcon(opt);
+                            return (
+                              <button
+                                key={opt}
+                                onClick={() => sendMessage(opt)}
+                                className="rounded-lg px-2.5 py-2 text-left text-[13px] transition-all duration-200 hover:scale-[1.02] active:scale-95 flex items-center gap-2"
+                                style={{
+                                  fontFamily: "'Nunito Variable', sans-serif",
+                                  background: 'rgba(139,18,27,0.04)',
+                                  border: '1px solid rgba(139,18,27,0.12)',
+                                  color: '#5a0e14',
+                                }}
+                              >
+                                {OptIcon && <span className="shrink-0 text-[#8b121b] opacity-70"><OptIcon /></span>}
+                                {opt}
+                              </button>
+                            );
+                          })}
                         </div>
                       )}
                     </div>
@@ -772,40 +812,35 @@ export function ChatBot() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Escribe tu mensaje..."
+                placeholder={t('chat.input.placeholder')}
                 className="flex-1 rounded-full px-3.5 py-2.5 outline-none transition-all md:px-4"
                 style={{
                   fontFamily: "'Nunito Variable', sans-serif",
                   fontSize: '0.94rem',
                   background: '#f5f5f5',
-                  border: '1px solid #ddd',
+                  border: '1px solid #e0e0e0',
                   color: '#250F0D',
                   caretColor: '#8b121b',
                 }}
-                onFocus={(e) => { e.target.style.borderColor = '#8b121b'; e.target.style.boxShadow = '0 0 0 3px rgba(139,18,27,0.08)'; }}
-                onBlur={(e) => { e.target.style.borderColor = '#ddd'; e.target.style.boxShadow = 'none'; }}
+                onFocus={(e) => { e.target.style.borderColor = '#bbb'; e.target.style.boxShadow = '0 0 0 3px rgba(0,0,0,0.04)'; }}
+                onBlur={(e) => { e.target.style.borderColor = '#e0e0e0'; e.target.style.boxShadow = 'none'; }}
               />
-              <AnimatePresence>
-                {input.trim() && (
-                  <motion.button
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0, opacity: 0 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-                    onClick={() => sendMessage(input)}
-                    className="size-10 rounded-full flex items-center justify-center transition-colors duration-200 hover:scale-105 active:scale-95"
-                    style={{ background: 'linear-gradient(135deg, #c4922a, #8b121b)', boxShadow: '0 2px 12px rgba(196,146,42,0.4)' }}
-                  >
-                    <Send className="size-4 text-white" />
-                  </motion.button>
-                )}
-              </AnimatePresence>
+              <button
+                onClick={() => sendMessage(input)}
+                disabled={!input.trim()}
+                className="size-10 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-40 disabled:hover:scale-100"
+                style={{ background: 'linear-gradient(135deg, #c4922a, #8b121b)', boxShadow: input.trim() ? '0 2px 12px rgba(196,146,42,0.35)' : 'none' }}
+                aria-label={t('chat.input.send')}
+              >
+                <Send className="size-4 text-white" />
+              </button>
             </div>
 
             {/* Powered by */}
             <div className="text-center py-1.5 text-[10px]"
               style={{ fontFamily: "'Nunito Variable', sans-serif", color: 'rgba(139,18,27,0.35)', background: '#ffffff', borderTop: '1px solid #f0f0f0' }}>
-              🔥 {t('brand.name')} — {t('brand.tagline')}
+              <FlameIcon className="inline-block size-3 text-[rgba(139,18,27,0.4)] mr-1" />
+              {t('brand.name')} — {t('brand.tagline')}
             </div>
           </motion.div>
         )}

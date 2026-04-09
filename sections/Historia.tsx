@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react"
 import { useLanguage } from "@/context/LanguageContext"
+import { useRestaurant } from "@/context/RestaurantContext"
 
 const LocationIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
@@ -9,8 +10,15 @@ const LocationIcon = () => (
 
 const DURATION = 5000
 
+// slide index per restaurant key (order matches `slides` array below)
+const RESTAURANT_SLIDE_INDEX: Record<string, number> = {
+  "san-marcos": 0,
+  "la-ronda":   1,
+}
+
 export default function Historia() {
   const { t } = useLanguage()
+  const { selectedRestaurant } = useRestaurant()
   const [current, setCurrent]   = useState(0)
   const timerRef                = useRef<ReturnType<typeof setInterval> | null>(null)
 
@@ -50,6 +58,14 @@ export default function Historia() {
   const move = useCallback((dir: number) => {
     setCurrent((c) => (c + dir + slides.length) % slides.length)
   }, [])
+
+  /* ── Sincronizar con restaurante seleccionado desde el Hero ── */
+  useEffect(() => {
+    if (selectedRestaurant !== null) {
+      const idx = RESTAURANT_SLIDE_INDEX[selectedRestaurant]
+      if (idx !== undefined) setCurrent(idx)
+    }
+  }, [selectedRestaurant])
 
   /* ── Autoplay: reinicia cada vez que cambia `current` ── */
   useEffect(() => {

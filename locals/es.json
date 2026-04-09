@@ -136,7 +136,7 @@
   "chat.promo.4": "¡Escríbenos!",
   "chat.promo.5": "¿Ya viste el menú?",
   "chat.promo.6": "¡Te esperamos!",
-  "chat.bot.greeting": "¡Bienvenido a *Leña Quiteña* 🔥! El sabor auténtico de la parrilla quiteña. ¿En qué puedo ayudarte hoy?",
+  "chat.bot.greeting": "Hola, bienvenido a *Leña Quiteña*. El sabor auténtico de la parrilla quiteña, ¿en qué puedo ayudarte?",
   "chat.bot.menu": "🥩 *PARRILLAS*\n• Churrasco Leña Quiteña — $18\n• Costilla BBQ Ahumada — $22\n• Lomo Fino a la Brasa — $24\n• Pollo a la Leña — $14\n\n🍟 *ACOMPAÑAMIENTOS*\n• Papas fritas / al vapor / gratinadas — $4\n• Ensalada criolla / verde — $3.50\n• Yuca frita — $3.50\n• Choclo con queso — $3\n\n🍺 *BEBIDAS*\n• Pilsener / Club — $3\n• Limonada / Naranjada natural — $3.50\n• Agua / Gaseosa — $2\n• Jugo del día — $3\n\n🍮 *POSTRES*\n• Tres Leches casero — $5\n• Helado de paila — $4\n• Flan de coco — $4.50\n\n¿Deseas realizar un pedido o necesitas más información?",
   "chat.bot.reserve": "¡Con gusto te ayudamos con tu reserva! 🎉\n\nPor favor indícanos:\n1️⃣ Fecha deseada\n2️⃣ Hora preferida\n3️⃣ Número de personas\n4️⃣ Tu nombre y teléfono\n\nO escríbenos directamente por WhatsApp: *+593 98 765 4321*",
   "chat.bot.order": "🛵 *Realizamos entregas en Quito Norte y Centro*\n\nPara hacer tu pedido:\n• WhatsApp: *+593 98 765 4321*\n• Tiempo estimado: 35–50 min\n• Pedido mínimo: $15\n• Envío: $2.50\n\n¿Te gustaría ver el menú primero?",
@@ -165,5 +165,7 @@
   "chat.reservation.processing": "Procesando tu reserva...",
   "chat.reservation.success": "¡Reserva confirmada! 🔥 Te esperamos en Leña Quiteña.",
   "chat.reservation.error": "No pudimos guardar tu reserva en este momento. Inténtalo de nuevo o contáctanos por WhatsApp.",
-  "chat.reservation.cancelled": "Reserva cancelada. ¿En qué más puedo ayudarte?"
+  "chat.reservation.cancelled": "Reserva cancelada. ¿En qué más puedo ayudarte?",
+  "chat.input.placeholder": "Escribe tu mensaje…",
+  "chat.input.send": "Enviar mensaje"
 }
